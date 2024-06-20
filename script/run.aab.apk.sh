@@ -1,0 +1,1 @@
+fvm flutter build appbundle --flavor prod -t lib/app/main_prod.dart --release

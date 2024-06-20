@@ -1,0 +1,4 @@
+app_identifier("com.check_list_app")
+json_key_file("fastlane/goggle-service-account.json")
+package_name("com.check_list_app")
+default_platform(:android)
