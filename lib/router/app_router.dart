@@ -5,6 +5,8 @@ import 'package:check_list_app/screens/home/home_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class AppRouter {
   static final AppRouter _instance = AppRouter._internal();
   factory AppRouter() => _instance;
@@ -13,6 +15,7 @@ class AppRouter {
 
   AppRouter._internal() {
     _router = GoRouter(
+      navigatorKey: navigatorKey,
       routes: [
         GoRoute(
           path: '/',
