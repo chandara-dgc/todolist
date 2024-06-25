@@ -1,81 +1,82 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:check_list_app/utils/app_print/app_print.dart';
 import 'package:dio/dio.dart';
 
 class CustomLoggingInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    print("┌────── Request ───────────────────────────");
-    print("│ URL: ${options.uri}");
-    print("│");
-    print("│ Method: ${options.method}");
-    print("│");
-    print("|  HEADER:");
+    AppPrint.info("┌────── Request ───────────────────────────");
+    AppPrint.info("│ URL: ${options.uri}");
+    AppPrint.info("│");
+    AppPrint.info("│ Method: ${options.method}");
+    AppPrint.info("│");
+    AppPrint.info("|  HEADER:");
     options.headers.forEach((key, value) {
-      print("|  $key: $value");
+      AppPrint.info("|  $key: $value");
     });
-    print("│");
+    AppPrint.info("│");
 
     if (options.data != null) {
       if (options.data is FormData) {
-        print("│ Body: FormData");
+        AppPrint.info("│ Body: FormData");
         FormData formData = options.data as FormData;
         formData.fields.forEach((element) {
-          print("|  ${element.key}: ${element.value}");
+          AppPrint.info("|  ${element.key}: ${element.value}");
         });
         formData.files.forEach((element) {
-          print("|  ${element.key}: ${element.value.filename}");
+          AppPrint.info("|  ${element.key}: ${element.value.filename}");
         });
       } else if (options.data is Stream<List<int>>) {
-        print("│ Body: Stream");
+        AppPrint.info("│ Body: Stream");
         // Convert the stream to a Uint8List
         Uint8List bodyBytes = await (options.data as Stream<List<int>>)
             .reduce((a, b) => a..addAll(b))
             .then((list) => Uint8List.fromList(list));
-        print("│ ${utf8.decode(bodyBytes)}");
+        AppPrint.info("│ ${utf8.decode(bodyBytes)}");
       } else {
-        print("│ Body:");
-        print("│ ${options.data}");
+        AppPrint.info("│ Body:");
+        AppPrint.info("│ ${options.data}");
       }
     }
 
-    print("└────────────────────────────────────");
+    AppPrint.info("└────────────────────────────────────");
     return super.onRequest(options, handler);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    print("┌────── Response ─────────────────────────");
-    print("│ Status Code: ${response.statusCode}");
-    print("│");
-    print("│ Headers:");
+    AppPrint.info("┌────── Response ─────────────────────────");
+    AppPrint.info("│ Status Code: ${response.statusCode}");
+    AppPrint.info("│");
+    AppPrint.info("│ Headers:");
     response.headers.forEach((key, value) {
-      print("│ $key: ${value.join(', ')}");
+      AppPrint.info("│ $key: ${value.join(', ')}");
     });
-    print("│");
-    print("│ Body:");
-    print("│ ${response.data}");
-    print("└────────────────────────────────────");
+    AppPrint.info("│");
+    AppPrint.info("│ Body:");
+    AppPrint.info("│ ${response.data}");
+    AppPrint.info("└────────────────────────────────────");
     return super.onResponse(response, handler);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    print("┌────── Error ───────────────────────────");
-    print("│ Message: ${err.message}");
+    AppPrint.error("┌────── Error ───────────────────────────");
+    AppPrint.error("│ Message: ${err.message}");
     if (err.response != null) {
-      print("│ Status Code: ${err.response?.statusCode}");
-      print("│");
-      print("│ Headers:");
+      AppPrint.error("│ Status Code: ${err.response?.statusCode}");
+      AppPrint.error("│");
+      AppPrint.error("│ Headers:");
       err.response?.headers.forEach((key, value) {
-        print("│ $key: ${value.join(', ')}");
+        AppPrint.error("│ $key: ${value.join(', ')}");
       });
-      print("│");
-      print("│ Body:");
-      print("│ ${err.response?.data}");
+      AppPrint.error("│");
+      AppPrint.error("│ Body:");
+      AppPrint.error("│ ${err.response?.data}");
     }
-    print("└────────────────────────────────────");
+    AppPrint.error("└────────────────────────────────────");
     return super.onError(err, handler);
   }
 }

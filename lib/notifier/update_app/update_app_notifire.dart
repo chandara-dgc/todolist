@@ -37,10 +37,12 @@ class UpdateNotifier extends AppNotifire {
     notifyListeners();
   }
 
-  void _startRealtimeUpdateListener() {
-    _updateModel = _updateService.fromJson as AppUpdateModel;
-    notifyListeners();
-    _checkAndShowUpdateDialog();
+  void _startRealtimeUpdateListener() async {
+    _updateService.addUpdateListener((updateModel) {
+      _updateModel = updateModel;
+      notifyListeners();
+      _checkAndShowUpdateDialog();
+    });
   }
 
   bool isOptionalUpdateAvailable() {
@@ -91,7 +93,7 @@ class UpdateNotifier extends AppNotifire {
   }
 
   Future<void> checkForUpdate() async {
-    await _updateService.getUpdateInfo();
+    await _updateService.fetchUpdateInfo();
     notifyListeners();
   }
 
