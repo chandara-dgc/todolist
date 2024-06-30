@@ -9,6 +9,5 @@ class UpdateAppService extends FirebaseRealtimeDatabase<AppUpdateModel> {
         );
 
   @override
-  String keyRef() => 'userModel';
+  String keyRef() => 'appUpdate';
 }
-

@@ -1,17 +1,17 @@
 import 'package:check_list_app/notifier/form/form_state_notifier.dart';
 import 'package:check_list_app/screens/home/tabs/app_tab.dart';
 import 'package:check_list_app/widget/animat_bottom_sheet.dart';
+import 'package:check_list_app/widget/core/app_screen.dart';
 import 'package:check_list_app/widget/filter_option.dart';
 import 'package:check_list_app/widget/progress_overal.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeScreen extends HookConsumerWidget {
+class HomeScreen extends AppScreen {
   const HomeScreen({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hello! 👋'),
@@ -39,7 +39,7 @@ class HomeScreen extends HookConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           ref.read(formStateProvider).resetFormState();
           ref.read(formStateProvider).perpuseNavigate(FormAction.ADD);
           context.push('/details');

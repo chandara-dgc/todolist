@@ -1,4 +1,5 @@
 import 'package:check_list_app/config/flavors.dart';
+import 'package:check_list_app/utils/app_print/app_print.dart';
 import 'package:check_list_app/utils/firebase/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -9,9 +10,10 @@ class FirebaseManager {
           DefaultFirebaseOptions(flavor: flavor);
       FirebaseOptions options = firebaseOptions.getFirebaseOptions();
       await Firebase.initializeApp(options: options);
-      print("🍀🍀🍀 FirebaseManager >> initPlatformFirebase >> Contted 🍀🍀🍀");
+      AppPrint.info("🍀🍀🍀 FirebaseManager >> initPlatformFirebase >> Contted 🍀🍀🍀");
     } catch (e) {
-      print("💥💥💥FirebaseManager >> initPlatformFirebase >> Failed: $e💥💥💥");
+      AppPrint.error(
+          "💥💥💥FirebaseManager >> initPlatformFirebase >> Failed: $e💥💥💥");
     }
   }
 }

@@ -1,13 +1,14 @@
 import 'package:check_list_app/notifier/task/task_notifier.dart';
+import 'package:check_list_app/widget/core/app_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class DashboardScreen extends HookConsumerWidget {
+class DashboardScreen extends AppScreen {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final tasks = ref.watch(taskProvider).tasks;
 
     // Group tasks by priority

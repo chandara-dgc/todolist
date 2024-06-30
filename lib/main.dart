@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 FutureOr<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   const environment = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
   final config = await AppConfig.load(environment);
   runApp(ProviderScope(child: App(config: config)));

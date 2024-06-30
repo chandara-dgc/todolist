@@ -1,3 +1,4 @@
+import 'package:check_list_app/utils/app_print/app_print.dart';
 import 'package:check_list_app/utils/types/type.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -34,7 +35,7 @@ abstract class FirebaseRealtimeDatabase<T> {
   /// Retrieves the data at the specified database reference path and
   /// converts it to a model object of type [T] using the [fromJson] function.
   /// Returns `null` if no data is found or if an error occurs.
-  Future<T?> fetchUpdateInfo() async {
+  Future<T?> fetch() async {
     try {
       DatabaseEvent event = await _dbRef.once();
       DataSnapshot snapshot = event.snapshot;
@@ -42,7 +43,7 @@ abstract class FirebaseRealtimeDatabase<T> {
         return fromJson(Map<String, dynamic>.from(snapshot.value as Map));
       }
     } catch (e) {
-      print('Error fetching update info: $e');
+      AppPrint.debug('Error fetching update info: $e');
     }
     return null;
   }
@@ -52,12 +53,12 @@ abstract class FirebaseRealtimeDatabase<T> {
   /// Converts the provided [updateInfo] model object to a JSON map using
   /// the [toJson] function and sets it at the specified database reference path.
   /// Returns `true` if the operation is successful, `false` otherwise.
-  Future<bool> setUpdateInfo(T updateInfo) async {
+  Future<bool> set(T updateInfo) async {
     try {
       await _dbRef.set(toJson(updateInfo));
       return true;
     } catch (e) {
-      print('Error setting update info: $e');
+      AppPrint.debug('Error setting update info: $e');
       return false;
     }
   }
@@ -66,12 +67,12 @@ abstract class FirebaseRealtimeDatabase<T> {
   ///
   /// Removes the data at the specified database reference path.
   /// Returns `true` if the operation is successful, `false` otherwise.
-  Future<bool> deleteUpdateInfo() async {
+  Future<bool> delete() async {
     try {
       await _dbRef.remove();
       return true;
     } catch (e) {
-      print('Error deleting update info: $e');
+      AppPrint.debug('Error deleting update info: $e');
       return false;
     }
   }
@@ -81,12 +82,12 @@ abstract class FirebaseRealtimeDatabase<T> {
   /// Converts the provided [updateInfo] model object to a JSON map using
   /// the [toJson] function and updates it at the specified database reference path.
   /// Returns `true` if the operation is successful, `false` otherwise.
-  Future<bool> updateUpdateInfo(T updateInfo) async {
+  Future<bool> update(T updateInfo) async {
     try {
       await _dbRef.update(toJson(updateInfo));
       return true;
     } catch (e) {
-      print('Error updating update info: $e');
+      AppPrint.debug('Error updating update info: $e');
       return false;
     }
   }
@@ -101,7 +102,7 @@ abstract class FirebaseRealtimeDatabase<T> {
       final DatabaseEvent event = await connectedRef.once();
       return event.snapshot.value == true;
     } catch (e) {
-      print('Error checking connection status: $e');
+      AppPrint.debug('Error checking connection status: $e');
       return false;
     }
   }

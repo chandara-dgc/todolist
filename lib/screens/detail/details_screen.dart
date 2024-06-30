@@ -1,19 +1,19 @@
-import 'package:check_list_app/model/form/form_model.dart';
 import 'package:check_list_app/model/task_model/task_model.dart';
 import 'package:check_list_app/notifier/form/form_state_notifier.dart';
 import 'package:check_list_app/widget/app_dropdown.dart';
 import 'package:check_list_app/widget/app_text_input.dart';
+import 'package:check_list_app/widget/core/app_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DetailsScreen extends HookConsumerWidget {
+class DetailsScreen extends AppScreen {
   final _formKey = GlobalKey<FormState>();
   final TaskModel? originalTask;
 
   DetailsScreen({Key? key, this.originalTask}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final formStateNotifier = ref.watch(formStateProvider);
     final formState = formStateNotifier.formState;
     final formAction = formStateNotifier.formAction;
