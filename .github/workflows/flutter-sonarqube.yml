@@ -71,12 +71,11 @@ jobs:
 
       - name: Run SonarQube Scan
         env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: 178.128.29.159
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
           -Dsonar.projectKey=check-list-app \
-          -Dsonar.host.url=$SONAR_HOST_URL \
+          -Dsonar.host.url=178.128.29.159 \
           -Dsonar.sources=lib \
           -Dsonar.login=$SONAR_TOKEN
-
