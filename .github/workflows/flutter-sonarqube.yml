@@ -9,7 +9,7 @@ jobs:
   sonarQube:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: sonarsource/sonarqube-scan-action@master
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
