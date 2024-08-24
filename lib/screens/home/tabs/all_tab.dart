@@ -19,7 +19,7 @@ class AllTab extends HookConsumerWidget {
               'assets/images/empty.png',
               width: 200,
             ),
-            Text(
+            const Text(
               'No tasks available',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
