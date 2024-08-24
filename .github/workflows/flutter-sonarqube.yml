@@ -1,24 +1,24 @@
-name: SonarQube Scan
+# name: SonarQube Scan
 
-on:
-  push:
-    branches:
-      - develop
+# on:
+#   push:
+#     branches:
+#       - develop
 
-jobs:
-  sonarQube:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: sonarsource/sonarqube-scan-action@master
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-          -Dsonar.projectKey=check-list-app \
-          -Dsonar.sources=lib \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+# jobs:
+#   sonarQube:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: sonarsource/sonarqube-scan-action@master
+#       - name: SonarQube Scan
+#         env:
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#         run: |
+#           sonar-scanner \
+#           -Dsonar.projectKey=check-list-app \
+#           -Dsonar.sources=lib \
+#           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+#           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
 # name: SonarQube Scan
 
@@ -46,3 +46,26 @@ jobs:
 #       #   timeout-minutes: 5
 #       #   env:
 #       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+name: SonarQube Scan
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+          -Dsonar.projectKey=check-list-app \
+          -Dsonar.host.url=$SONAR_HOST_URL \
+          -Dsonar.sources=lib \
+          -Dsonar.login=$SONAR_TOKEN
