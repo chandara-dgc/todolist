@@ -66,6 +66,6 @@ jobs:
         run: |
           sonar-scanner \
           -Dsonar.projectKey=check-list-app \
-          -Dsonar.host.url=$SONAR_HOST_URL \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
           -Dsonar.sources=lib \
-          -Dsonar.login=$SONAR_TOKEN
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
